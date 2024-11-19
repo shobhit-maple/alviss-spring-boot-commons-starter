@@ -1,0 +1,30 @@
+version: 2.1
+executors:
+  gradle-executor:
+    docker:
+      - image: cimg/openjdk:21.0
+
+jobs:
+  build:
+    executor: gradle-executor
+    steps:
+      - checkout
+      - run:
+          name: Build JAR
+          command: ./gradlew clean build
+      - run:
+          name: Publish JAR to GitHub Packages
+          command: ./gradlew publish
+          environment:
+            GITHUB_USERNAME: $GITHUB_USERNAME
+            GITHUB_TOKEN: $GITHUB_TOKEN
+workflows:
+  version: 2
+  build_and_push:
+    jobs:
+      - build:
+          context:
+            - shared-credentials
+          filters:
+            branches:
+              only: master

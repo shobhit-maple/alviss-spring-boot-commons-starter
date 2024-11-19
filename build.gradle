@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'com.alviss'
-version = '1.0'
+version = '1.0.4'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -23,11 +23,20 @@ configurations {
 
 repositories {
     mavenCentral()
-    gradlePluginPortal()
 }
 
 publishing {
-    publications{
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/shobhit-maple/alviss-spring-boot-commons-starter")
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
         mavenJava(MavenPublication) {
             from components.java
         }
