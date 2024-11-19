@@ -1,0 +1,4 @@
+com.alviss.commons.rest.HttpAutoConfiguration
+com.alviss.commons.security.AuthenticationAutoConfiguration
+com.alviss.commons.security.MethodSecurityAutoConfiguration
+com.alviss.commons.validator.ValidationAutoConfiguration
